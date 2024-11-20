@@ -1,0 +1,19 @@
+{
+  "name": "devtinder-server",
+  "version": "1.0.0",
+  "description": "This is Devtinder server",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "devtinder",
+    "nodejs"
+  ],
+  "author": "Sanket Sonawane",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
