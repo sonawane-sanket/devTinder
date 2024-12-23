@@ -1,20 +1,58 @@
 const express = require("express");
 const connectDB = require("./config/database");
 const app = express();
+const bcrypt = require("bcrypt");
 
 const User = require("./models/user");
+const { validationSignupData } = require("./utils/validation");
 
 app.use(express.json());
 
 // Signup user with dynamic data
 app.post("/signup", async (req, res) => {
-  console.log(req.body);
-  const newUser = new User(req.body);
   try {
+    validationSignupData(req);
+
+    const { firstName, lastName, email, password } = req.body;
+
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    console.log(passwordHash);
+
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: passwordHash,
+    });
     await newUser.save();
     res.send("User saved successfully..!");
   } catch (err) {
     res.status(400).send("Error saving user: " + err.message);
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    console.log("Email: ", email);
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      throw new Error("Invalid credentials");
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+      throw new Error("Invalid credentials");
+    } else {
+      res.send("Login successful");
+    }
+  } catch (err) {
+    res.status(400).send("Error swhile login: " + err.message);
   }
 });
 

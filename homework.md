@@ -82,3 +82,11 @@ Assignment 3
 - Explore Validator library functions
 - Use Validator functions for password, photoUrl and email
 - Never trust req.body
+
+- Validate data in signup API
+- Install bcrypt npm package
+- Create PasswordHash using bcrypt.hash and save the user with encryoted password
+
+
+- Create login API
+- Validate the data and compare password and throw error if email or passowrd is incorrect
