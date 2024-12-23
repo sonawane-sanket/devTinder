@@ -39,3 +39,4 @@ Assignment 3
 - Difference between app.use and app.all
 - Write a dummy auth middleware for admin
 - Write a dummy auth middleware for all user routes, except user/login
+- Error handling with middleware
