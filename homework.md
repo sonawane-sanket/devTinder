@@ -50,3 +50,7 @@ Assignment 3
 - Create a User Schema and User Model
 - Create POST /signup  API to add some data to databse
 - Push some documents using API calls from postman
+
+- JS Object and JSON (Difference)
+- Add express.json() middleware
+- Make /signup api dynamic to receive data from the end user
