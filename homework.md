@@ -14,6 +14,7 @@ Assignment 1
     - ^ : Acceptable versions: 1.x.x, where x is any version greater than or equal to
     - ~ : Acceptable versions: 1.2.x, where x is any version greater than or equal to 
 
+
 Assignment 2
 - Intialize GIT
 - .gitignore
@@ -51,6 +52,7 @@ Assignment 3
 - Create POST /signup  API to add some data to databse
 - Push some documents using API calls from postman
 
+
 - JS Object and JSON (Difference)
 - Add express.json() middleware
 - Make /signup api dynamic to receive data from the end user
@@ -64,3 +66,11 @@ Assignment 3
 - Explore mongoose documentation for Model methods
 - What are options in Modal.findOneAndUpdate method
 - API - Update the user with emailId  
+
+
+- Explore schematype options from the documentation
+- Add required, unique, lowercase, min, max, minLength, maxLength, trim, etc
+- Add default
+- Create a custom validation function
+- Improve the DB schema - Put all required validations on each field in schema
+- Add timestamps to the schema
