@@ -40,3 +40,13 @@ Assignment 3
 - Write a dummy auth middleware for admin
 - Write a dummy auth middleware for all user routes, except user/login
 - Error handling with middleware
+
+
+
+- Create a free clusteron mongoDB official website (Mongo Atlas)
+- Install mongoose library
+- Connect application to database
+- Call connectDB function and connect to database before starting application on 7777
+- Create a User Schema and User Model
+- Create POST /signup  API to add some data to databse
+- Push some documents using API calls from postman
