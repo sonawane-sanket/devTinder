@@ -90,3 +90,10 @@ Assignment 3
 
 - Create login API
 - Validate the data and compare password and throw error if email or passowrd is incorrect
+
+- Install cookie-parser
+- Send dummy cookie to user
+- Create GET profile API and check if you get the cookie back
+- Install jsonwebtoken
+- In Login API, after email and password validation, create a jwt token and sent it back to user in cookie
+- Read the cookie inside your profile API and logged in user

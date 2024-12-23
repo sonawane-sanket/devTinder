@@ -2,11 +2,15 @@ const express = require("express");
 const connectDB = require("./config/database");
 const app = express();
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 const User = require("./models/user");
 const { validationSignupData } = require("./utils/validation");
+const { PRIVATE_KEY } = require("./utils/constants");
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Signup user with dynamic data
 app.post("/signup", async (req, res) => {
@@ -49,11 +53,35 @@ app.post("/login", async (req, res) => {
     if (!isPasswordCorrect) {
       throw new Error("Invalid credentials");
     } else {
+      const token = jwt.sign({ _id: user._id }, PRIVATE_KEY);
+      res.cookie("token", token);
       res.send("Login successful");
     }
   } catch (err) {
     res.status(400).send("Error swhile login: " + err.message);
   }
+});
+
+app.get("/profile", async (req, res) => {
+  const cookies = req.cookies;
+
+  const { token } = cookies;
+
+  if (!token) {
+    throw new Error("Please login again");
+  }
+
+  const decodedMessage = await jwt.verify(token, PRIVATE_KEY);
+
+  const { _id } = decodedMessage;
+
+  const user = await User.findById(_id);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  res.send(user);
 });
 
 // Get a user by email
