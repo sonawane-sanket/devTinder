@@ -81,3 +81,4 @@ Assignment 3
 - Install Validator npm package
 - Explore Validator library functions
 - Use Validator functions for password, photoUrl and email
+- Never trust req.body
