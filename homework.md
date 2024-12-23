@@ -74,3 +74,7 @@ Assignment 3
 - Create a custom validation function
 - Improve the DB schema - Put all required validations on each field in schema
 - Add timestamps to the schema
+
+
+- API level validations on Patch request & Signup post api
+- Add API validation for each field 
