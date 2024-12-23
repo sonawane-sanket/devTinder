@@ -86,8 +86,6 @@ Assignment 3
 - Validate data in signup API
 - Install bcrypt npm package
 - Create PasswordHash using bcrypt.hash and save the user with encryoted password
-
-
 - Create login API
 - Validate the data and compare password and throw error if email or passowrd is incorrect
 
@@ -99,3 +97,5 @@ Assignment 3
 - Read the cookie inside your profile API and logged in user
 - Create userAuth middleware, add in profile and sendConnectionRequest API
 - Set expiry of JWT token and cookies
+- Create userSchema method to getJWT
+- Create userSchema method to validate password

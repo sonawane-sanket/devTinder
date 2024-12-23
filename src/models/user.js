@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const validator = require("validator");
+const { JWT_SECRET_KEY } = require("../utils/constants");
 
 const { Schema } = mongoose;
 
@@ -57,5 +60,24 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
+// Moving methods to userSchema so they can be reused easily
+userSchema.methods.getJWT = async function () {
+  const user = this;
+  const token = await jwt.sign({ _id: user._id }, JWT_SECRET_KEY, {
+    expiresIn: "1d",
+  });
+
+  return token;
+};
+
+userSchema.methods.validatePassword = async function (passwordFromUser) {
+  const user = this;
+  const passwordHash = user.password;
+
+  const isPasswordValid = await bcrypt.compare(passwordFromUser, passwordHash);
+
+  return isPasswordValid;
+};
 
 module.exports = mongoose.model("User", userSchema);

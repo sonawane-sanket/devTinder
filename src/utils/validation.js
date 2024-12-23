@@ -3,8 +3,6 @@ const validator = require("validator");
 const validationSignupData = (req) => {
   const { firstName, lastName, email, password } = req.body;
 
-  console.log(firstName, lastName, email, password);
-
   if (!firstName || !lastName) {
     throw new Error("Name is not valid");
   } else if (!validator.isEmail(email)) {
