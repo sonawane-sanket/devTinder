@@ -54,3 +54,13 @@ Assignment 3
 - JS Object and JSON (Difference)
 - Add express.json() middleware
 - Make /signup api dynamic to receive data from the end user
+- User.findOne with duplicate email ids, which object will be returned?
+- API - Get user by email
+- API - Feed API - GET /feed - get all the users from the database
+- API - Get user by ID
+- API - Delete a user
+- Difference between PUT and PATCH
+- API - Update a user
+- Explore mongoose documentation for Model methods
+- What are options in Modal.findOneAndUpdate method
+- API - Update the user with emailId  
