@@ -78,3 +78,6 @@ Assignment 3
 
 - API level validations on Patch request & Signup post api
 - Add API validation for each field 
+- Install Validator npm package
+- Explore Validator library functions
+- Use Validator functions for password, photoUrl and email

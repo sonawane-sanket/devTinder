@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const validator = require("validator");
+
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
@@ -12,10 +14,20 @@ const userSchema = new Schema(
       unique: true,
       lowercase: true,
       trim: true,
-      minLength: 4,
-      maxLength: 20,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Invalid email address: " + value);
+        }
+      },
     },
-    password: { type: String },
+    password: {
+      type: String,
+      validate(value) {
+        if (!validator.isStrongPassword(value)) {
+          throw new Error("Please provide strong password: " + value);
+        }
+      },
+    },
     age: { type: Number, min: 18 },
     gender: {
       type: String,
@@ -29,11 +41,16 @@ const userSchema = new Schema(
       type: String,
       default:
         "https://static.vecteezy.com/system/resources/previews/045/944/199/non_2x/male-default-placeholder-avatar-profile-gray-picture-isolated-on-background-man-silhouette-picture-for-user-profile-in-social-media-forum-chat-greyscale-illustration-vector.jpg",
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid photo url: " + value);
+        }
+      },
     },
     about: {
       type: String,
       default: "This is a default about of the user!",
-      minLength: 50,
+      minLength: 20,
       maxLength: 500,
     },
     skills: { type: [String] },
