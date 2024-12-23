@@ -1,5 +1,5 @@
-const PRIVATE_KEY = "DEV@TINDER$";
+const JWT_SECRET_KEY = "DEV@TINDER$";
 
 module.exports = {
-  PRIVATE_KEY,
+  JWT_SECRET_KEY,
 };

@@ -97,3 +97,5 @@ Assignment 3
 - Install jsonwebtoken
 - In Login API, after email and password validation, create a jwt token and sent it back to user in cookie
 - Read the cookie inside your profile API and logged in user
+- Create userAuth middleware, add in profile and sendConnectionRequest API
+- Set expiry of JWT token and cookies
