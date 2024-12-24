@@ -13,7 +13,7 @@ const requestRouter = require("./routes/request");
 
 app.use("/", authRouter);
 app.use("/profile", profileRouter);
-app.use("/", requestRouter);
+app.use("/request", requestRouter);
 
 connectDB()
   .then(() => {

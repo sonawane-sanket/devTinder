@@ -1,4 +1,7 @@
 const validator = require("validator");
+const { STATUS } = require("./constants");
+const ConnectionRequest = require("../models/connectionRequest");
+const User = require("../models/user");
 
 const validationSignupData = (req) => {
   const { firstName, lastName, email, password } = req.body;
@@ -50,8 +53,32 @@ const validateNewPassword = (newPassword) => {
   }
 };
 
+const validateSendConnectionReq = async (status, fromUserId, toUserId) => {
+  const ALLOWED_STATUS = [STATUS.IGNORED, STATUS.INTERESTED];
+
+  if (!ALLOWED_STATUS.includes(status)) {
+    throw new Error("Invalid status type: " + status);
+  } else {
+    const isUserExist = await User.findById(toUserId);
+    if (!isUserExist) {
+      throw new Error("User does not exists");
+    } else {
+      const existingConnectionRequest = await ConnectionRequest.findOne({
+        $or: [
+          { fromUserId, toUserId },
+          { fromUserId: toUserId, toUserId: fromUserId },
+        ],
+      });
+      if (existingConnectionRequest) {
+        throw new Error("Connection request already exists");
+      }
+    }
+  }
+};
+
 module.exports = {
   validationSignupData,
   validateProfileUpdateData,
   validateNewPassword,
+  validateSendConnectionReq,
 };

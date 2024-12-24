@@ -34,6 +34,10 @@ const userSchema = new Schema(
     age: { type: Number, min: 18 },
     gender: {
       type: String,
+      enums: {
+        values: ["male", "female", "others"],
+        message: "{VALUE} is not a valid geneder type",
+      },
       validate(value) {
         if (!["male", "female", "others"].includes(value)) {
           throw new Error("Gender can be male / female / others");

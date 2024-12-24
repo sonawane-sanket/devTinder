@@ -112,3 +112,14 @@ Assignment 3
 - Create PATCH /profile/password API
 - Make sure to validate all data in POST, PATCH apis
 
+- Create connectionrequest schema
+- Send connection request API
+- Proper validation of data
+- Think about all corner cases
+- Read about complex/logical queries such as $or, $and, etc
+- Schema.pre function
+- Read more about indexes
+- Why do we need indexes
+- What is the advantages and disadvantages of creating indexes
+- Read about compand index on mongo official website
+
