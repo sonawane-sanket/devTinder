@@ -76,9 +76,28 @@ const validateSendConnectionReq = async (status, fromUserId, toUserId) => {
   }
 };
 
+const validateReceiveConnectionReq = async (status, requestId, toUserId) => {
+  const ALLOWED_STATUS = [STATUS.ACCEPTED, STATUS.REJECTED];
+
+  if (!ALLOWED_STATUS.includes(status)) {
+    throw new Error("Invalid status type: " + status);
+  }
+
+  const connectionRequest = await ConnectionRequest.findOne({
+    _id: requestId,
+    status: STATUS.INTERESTED,
+    toUserId,
+  });
+
+  if (!connectionRequest) {
+    throw new Error("Invalid connection request");
+  }
+};
+
 module.exports = {
   validationSignupData,
   validateProfileUpdateData,
   validateNewPassword,
   validateSendConnectionReq,
+  validateReceiveConnectionReq,
 };

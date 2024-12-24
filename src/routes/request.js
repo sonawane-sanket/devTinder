@@ -3,7 +3,10 @@ const requestRouter = express.Router();
 
 const { userAuth } = require("../middlewares/auth");
 const ConnectionRequest = require("../models/connectionRequest");
-const { validateSendConnectionReq } = require("../utils/validation");
+const {
+  validateSendConnectionReq,
+  validateReceiveConnectionReq,
+} = require("../utils/validation");
 const { STATUS } = require("../utils/constants");
 
 requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
@@ -32,5 +35,26 @@ requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
     res.status(400).send("Error: " + err.message);
   }
 });
+
+requestRouter.post(
+  "/receive/:status/:requestId",
+  userAuth,
+  async (req, res) => {
+    try {
+      const loggedInUser = req.user;
+      const { status, requestId } = req.params;
+      await validateReceiveConnectionReq(status, requestId, loggedInUser._id);
+
+      const connectionRequest = await ConnectionRequest.findById(requestId);
+      connectionRequest.status = status;
+
+      connectionRequest.save();
+
+      res.json({ message: `Connection request ${status}` });
+    } catch (err) {
+      res.status(400).send("Error: " + err.message);
+    }
+  }
+);
 
 module.exports = requestRouter;
