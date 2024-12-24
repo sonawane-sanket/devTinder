@@ -1,6 +1,5 @@
 const express = require("express");
 const authRouter = express.Router();
-const bcrypt = require("bcrypt");
 
 const { validationSignupData } = require("../utils/validation");
 const User = require("../models/user");
@@ -12,15 +11,13 @@ authRouter.post("/signup", async (req, res) => {
 
     const { firstName, lastName, email, password } = req.body;
 
-    // const passwordHash = await bcrypt.hash(password, 10);
-    const passwordHash = await user.createPasswordHash(newPassword);
-
     const newUser = new User({
       firstName,
       lastName,
       email,
-      password: passwordHash,
     });
+    const passwordHash = await newUser.createPasswordHash(password);
+    newUser.password = passwordHash;
     await newUser.save();
     res.send("User saved successfully..!");
   } catch (err) {

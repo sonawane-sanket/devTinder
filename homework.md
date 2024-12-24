@@ -122,4 +122,11 @@ Assignment 3
 - Why do we need indexes
 - What is the advantages and disadvantages of creating indexes
 - Read about compand index on mongo official website
+
+
 - Implement /receive/:status/:requestId API with proper validations
+- Read about ref and populate in mongoose
+- Create /user/request/received API with all checks
+- Create/user/request/connection API with all checks
+- Implement /user/feed API
+- Explore $nin, $ne, etc (Comparison queries)
