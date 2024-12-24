@@ -99,3 +99,12 @@ Assignment 3
 - Set expiry of JWT token and cookies
 - Create userSchema method to getJWT
 - Create userSchema method to validate password
+
+- Explore Tinder APIs
+- Create a list of all APIs for DevTinder
+- Group multuple routes under respective router
+- Explore / read documentatiuon of express router
+- Create Routes folder for managing auth, profile, request routers
+- Create authRouter, profileRouter, requestRouter
+- Import these routers in app.js
+

@@ -1,74 +1,19 @@
 const express = require("express");
 const connectDB = require("./config/database");
-const app = express();
-const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 
-const User = require("./models/user");
-const { userAuth } = require("./middlewares/auth");
-const { validationSignupData } = require("./utils/validation");
+const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 
-// Signup user with dynamic data
-app.post("/signup", async (req, res) => {
-  try {
-    validationSignupData(req);
+const authRouter = require("./routes/auth");
+const profileRouter = require("./routes/profile");
+const requestRouter = require("./routes/request");
 
-    const { firstName, lastName, email, password } = req.body;
-
-    const passwordHash = await bcrypt.hash(password, 10);
-
-    const newUser = new User({
-      firstName,
-      lastName,
-      email,
-      password: passwordHash,
-    });
-    await newUser.save();
-    res.send("User saved successfully..!");
-  } catch (err) {
-    res.status(400).send("Error saving user: " + err.message);
-  }
-});
-
-app.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      throw new Error("Invalid credentials");
-    }
-
-    const isPasswordCorrect = await user.validatePassword(password);
-
-    if (!isPasswordCorrect) {
-      throw new Error("Invalid credentials");
-    } else {
-      const token = await user.getJWT();
-      res.cookie("token", token);
-      res.send("Login successful");
-    }
-  } catch (err) {
-    res.status(400).send("Error swhile login: " + err.message);
-  }
-});
-
-app.get("/profile", userAuth, async (req, res) => {
-  try {
-    res.send(req.user);
-  } catch (err) {
-    res.status(400).send("Error: " + err.message);
-  }
-});
-
-app.post("/sendConnectionRequest", userAuth, (req, res) => {
-  const { user } = req;
-  res.send(`${user.firstName} is sending connection request `);
-});
+app.use("/", authRouter);
+app.use("/", profileRouter);
+app.use("/", requestRouter);
 
 connectDB()
   .then(() => {
