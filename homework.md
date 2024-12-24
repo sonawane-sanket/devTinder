@@ -107,4 +107,8 @@ Assignment 3
 - Create Routes folder for managing auth, profile, request routers
 - Create authRouter, profileRouter, requestRouter
 - Import these routers in app.js
+- Create /logout API
+- Create PATCH /profile/edit API
+- Create PATCH /profile/password API
+- Make sure to validate all data in POST, PATCH apis
 

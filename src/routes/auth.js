@@ -12,7 +12,8 @@ authRouter.post("/signup", async (req, res) => {
 
     const { firstName, lastName, email, password } = req.body;
 
-    const passwordHash = await bcrypt.hash(password, 10);
+    // const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await user.createPasswordHash(newPassword);
 
     const newUser = new User({
       firstName,
@@ -49,6 +50,12 @@ authRouter.post("/login", async (req, res) => {
   } catch (err) {
     res.status(400).send("Error swhile login: " + err.message);
   }
+});
+
+authRouter.post("/logout", (_, res) => {
+  res.clearCookie("token");
+  //   res.cookie('token', null, {expires: new Date(Date.now())});
+  res.send("Logout successful");
 });
 
 module.exports = authRouter;
